@@ -1,0 +1,20 @@
+library(tidyverse)
+hiv <- read.csv("HIVprev.csv",stringsAsFactors = FALSE)
+hiv <- select(hiv,Country, year, prevalence)
+head(hiv)
+#1
+ggplot(hiv,aes(x=year,y=prevalence,group=Country))+geom_line()
+#2
+ggplot(hiv,aes(x=year,y=prevalence,group=Country)) + geom_line(alpha=.1)
+#Due to many of the time series overlapping, we cannot observe that most coutries have an HIV prevalence of
+#close to zero (i.e., there is overplotting). A small alpha value overcomes the overplotting and reveals the low
+#HIV prevalence of most countries.\
+
+#3
+cc <- c("Botswana","Central African Republic","Congo","Kenya","Lesotho","Malawi",
+        "Namibia","South Africa","Swaziland","Uganda","Zambia","Zimbabwe")
+hiv <- filter(hiv,Country %in% cc)
+
+ggplot(hiv,aes(x=year,y=prevalence,group=Country)) + geom_line(alpha=.1) +
+  geom_line(data=hiv,color="red")
+

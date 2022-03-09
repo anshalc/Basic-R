@@ -1,0 +1,103 @@
+library(tidyverse)
+library(stringr)
+mystrings<-c("one fish","two fish",
+            "red fish","blue fish")
+str_length(mystrings)
+
+#str_c() to combine strings
+str_c(mystrings[1],mystrings[2])
+
+str_c(mystrings[1],NA,sep=", ")
+
+str_c(mystrings[1],str_replace_na(NA), sep=", ")
+
+str_c(mystrings,collapse=", ")
+
+#subsetting strings with str_sub()
+#specify start and stop
+str_sub(mystrings,1,3)
+str_sub(mystrings,-4,-1) # negative means back from end
+str_sub(mystrings,1,10000)
+str_sub(mystrings,9,10000)
+
+#video 1 ex 1
+demog<-c("new-sp_f014",
+         "new_sp_m1524",
+         "new_sp_mu")
+#1
+str_sub(demog,8,11)
+#2
+str_sub(demog,-4,-1)
+#3
+str_c(demog,collapse = " + ")
+
+#start of video 2
+#detecting substrings with str_detect()
+pattern<-"red"
+str_detect(mystrings,pattern)
+pattern<-"fish"
+str_detect(mystrings,pattern)
+#str_locate()returns start and stop positions of the first occurence of the string
+#str_locate_all() returns the start and stop of all occurances
+Seuss<-str_c(mystrings,collapse=", ")
+str_locate(Seuss,pattern)
+str_locate_all(Seuss,pattern)
+ 
+#str_replace() //replace first occurence
+str_replace(Seuss,"fish","bird")
+str_replace_all(Seuss,"fish","bird") # replace all
+
+str_replace_all(Seuss,c("one" = "1","two"="2")) # multiple replacements
+
+#str_split()
+mystrings<-c("20.50",
+             "33.33")
+str_split(mystrings,pattern=".")
+str_split(mystrings,pattern=fixed("."))
+
+#pattern matching
+pattern<-"p.n"
+mystrings<-c("pineapple","apple","pen")
+str_detect(mystrings,pattern)
+
+pattern2 <- "3.40"
+mystrings2 <- c("33.40","3340")
+str_detect(mystrings2,pattern2)
+
+pattern2 <- "3\\.40"
+str_detect(mystrings2,pattern2)
+
+#ex 2 video 2
+ex<-c("55.30","22.43")
+str_c(ex,str_replace_na("."), sep=",")
+ 
+#video3
+mystrings <- c("fun","for fun","fn")
+pattern1 <- "f.*n"; pattern2 <- "f.+n"
+str_extract(mystrings,pattern1)
+
+str_extract(mystrings,pattern2)
+
+mystrings <- c("fun","fun, fun, fun","fn")
+pattern1 <- "f.*n"
+str_extract(mystrings,pattern1)
+
+str_extract(mystrings,"f.{6}n")
+str_extract(mystrings,"f.{1,13}n")
+
+mystrings <- c("pineapple","apple","pen")
+str_extract(mystrings,"^p")
+
+
+str_extract(mystrings,"e$")
+
+pattern4 <- "f[aeiou]*n"
+mystrings <- c("fan","fin","fun","fan, fin, fun",
+               "friend","faint")
+str_extract(mystrings,pattern4)
+
+str_extract_all(mystrings,pattern4)
+
+#ex 3 video 3
+
+#ex 4 video 3
